@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feliz cum, David</title>
+<meta name="theme-color" content="#0a0612">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --void: #0a0612;
+    --deep: #160d2b;
+    --panel: #1d1238;
+    --violet: #a855f7;
+    --neon: #c77dff;
+    --bone: #f4efff;
+    --muted: #b8a9d9;
+    --portal: #7cfc5a;
+    --soul: #ff2a44;
+    --pixel: "Press Start 2P", "Courier New", monospace;
+    --body: "VT323", "Courier New", monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background:
+      radial-gradient(ellipse at 50% -10%, #3a1670 0%, transparent 55%),
+      radial-gradient(ellipse at 90% 60%, #2a0f55 0%, transparent 45%),
+      var(--void);
+    color: var(--bone);
+    font-family: var(--body);
+    font-size: 24px;
+    line-height: 1.25;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Scanlines + rejilla de fondo estilo setup gamer */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px);
+    pointer-events: none;
+    z-index: 50;
+  }
+  body::after {
+    content: "";
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(168,85,247,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168,85,247,.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, transparent, #000 40%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 40%, transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  main, header, footer { position: relative; z-index: 1; }
+
+  a { color: var(--neon); }
+  a:focus-visible, button:focus-visible, iframe:focus-visible {
+    outline: 3px solid var(--portal);
+    outline-offset: 3px;
+  }
+
+  .wrap { width: min(1080px, 92vw); margin-inline: auto; }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; padding: 64px 0 56px; text-align: center; }
+
+  .hero h1 {
+    font-family: var(--pixel);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bone);
+    text-shadow: 0 0 12px rgba(199,125,255,.7), 0 0 36px rgba(168,85,247,.55);
+  }
+  .hero h1 .l1 { display: block; font-size: clamp(16px, 3.6vw, 28px); letter-spacing: .04em; }
+  .hero h1 .l2 {
+    display: block;
+    font-size: clamp(38px, 11vw, 104px);
+    letter-spacing: .06em;
+    color: var(--neon);
+    margin-top: 14px;
+    animation: flicker 2.4s steps(1) 1;
+  }
+  @keyframes flicker {
+    0%, 8%, 12%, 30%, 34% { opacity: 1; }
+    10%, 32% { opacity: .15; }
+    14% { opacity: .6; }
+    100% { opacity: 1; }
+  }
+
+  .hero .sub { margin-top: 18px; color: var(--muted); font-size: 28px; }
+
+  /* Marco estilo caja de diálogo de Undertale */
+  .dialog {
+    background: #000;
+    border: 6px solid var(--bone);
+    padding: 14px;
+    box-shadow: 0 0 0 4px #000, 0 0 40px rgba(168,85,247,.45);
+  }
+  .sketch { width: min(560px, 100%); margin: 36px auto 0; }
+  .sketch iframe { display: block; width: 100%; aspect-ratio: 4 / 3; border: 0; background: #fff; }
+  .sketch-fallback { margin-top: 12px; font-size: 22px; color: var(--muted); }
+
+  /* Pegatinas */
+  .sticker { position: absolute; pointer-events: none; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
+  .sticker svg { display: block; width: 100%; height: auto; }
+  .s-soul   { width: 74px;  top: 40px;  left: 3%;  transform: rotate(-12deg); animation: bob 3s ease-in-out infinite; }
+  .s-portal { width: 120px; top: 20px;  right: 3%; }
+  .s-slime  { width: 120px; bottom: 30px; left: 2%; transform: rotate(-6deg); }
+  .s-mask   { width: 110px; bottom: 20px; right: 3%; transform: rotate(8deg); }
+  .s-ghost  { top: 46%; left: 14%; font-size: 52px; animation: bob 4s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+
+  .portal-spin { animation: spin 9s linear infinite; transform-origin: center; transform-box: fill-box; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- SECCIONES ---------- */
+  section { padding: 48px 0; }
+
+  h2 {
+    font-family: var(--pixel);
+    font-weight: 400;
+    font-size: clamp(14px, 2.6vw, 20px);
+    line-height: 1.6;
+    color: var(--neon);
+    text-shadow: 0 0 14px rgba(168,85,247,.6);
+    margin-bottom: 8px;
+  }
+  .lead { color: var(--muted); font-size: 26px; margin-bottom: 28px; max-width: 60ch; }
+  #juego .lead, #videos .lead { margin-inline: auto; text-align: center; }
+  #juego h2, #videos h2 { text-align: center; }
+
+  /* Carta en caja de diálogo */
+  .letter { max-width: 760px; margin-inline: auto; padding: 22px 22px 18px; }
+  .letter p { min-height: 1.25em; font-size: 28px; margin-bottom: 8px; }
+  .letter .next {
+    display: block; margin: 12px 0 0 auto;
+    background: none; border: 0; color: var(--bone);
+    font-family: var(--pixel); font-size: 12px; cursor: pointer; padding: 8px;
+  }
+  .letter .next .heart { color: var(--soul); display: inline-block; animation: bob 1.2s ease-in-out infinite; }
+  .letter .next[hidden] { display: none; }
+
+  /* Logros */
+  .achievements { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .ach {
+    display: flex; gap: 14px; align-items: center;
+    background: var(--panel);
+    border: 3px solid #3b2470;
+    border-left: 8px solid var(--violet);
+    padding: 14px;
+  }
+  .ach .ico { font-size: 38px; flex: none; }
+  .ach b { display: block; font-family: var(--pixel); font-weight: 400; font-size: 11px; line-height: 1.6; color: var(--bone); margin-bottom: 4px; }
+  .ach span { color: var(--muted); font-size: 22px; }
+
+  /* Multiverso */
+  .verse { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .world {
+    background: var(--deep);
+    border: 4px solid #3b2470;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 18px;
+    align-items: center;
+  }
+  .world .art svg { width: 100%; height: auto; display: block; }
+  .world h3 { font-family: var(--pixel); font-weight: 400; font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+  .world p { font-size: 24px; color: var(--bone); }
+  .world small { display: block; margin-top: 8px; color: var(--muted); font-size: 20px; }
+  .w-terraria { border-color: #2f7d4f; } .w-terraria h3 { color: #6fe39b; }
+  .w-undertale { border-color: #8a2230; } .w-undertale h3 { color: #ff6b7d; }
+  .w-dishonored { border-color: #4b5568; } .w-dishonored h3 { color: #b9c2d6; }
+  .w-rick { border-color: #2f8a2a; } .w-rick h3 { color: var(--portal); }
+
+  /* ---------- FOOTER / SAVE ---------- */
+  .save { text-align: center; padding: 56px 0 90px; }
+  .save button {
+    font-family: var(--pixel); font-size: 14px; line-height: 1.6;
+    color: var(--void); background: var(--neon);
+    border: 0; padding: 18px 22px; cursor: pointer;
+    box-shadow: 0 6px 0 #6b2fb3, 0 0 30px rgba(199,125,255,.55);
+  }
+  .save button:active { transform: translateY(4px); box-shadow: 0 2px 0 #6b2fb3; }
+  .save-msg { margin-top: 24px; font-size: 28px; min-height: 1.3em; color: var(--bone); }
+  .save small { display: block; margin-top: 40px; color: #7d6ba3; font-size: 20px; }
+
+  .bit { position: fixed; top: -20px; width: 10px; height: 10px; z-index: 60; pointer-events: none; }
+
+  /* Móvil */
+  @media (max-width: 700px) {
+    body { font-size: 22px; }
+    .hero { padding-top: 48px; }
+    .s-soul { width: 46px; top: 14px; left: 4%; }
+    .s-portal { width: 70px; top: 10px; right: 4%; }
+    .s-slime, .s-mask, .s-ghost { display: none; }
+    .world { grid-template-columns: 72px 1fr; }
+    .letter p { font-size: 25px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+<link rel="stylesheet" href="css/game.css">
+</head>
+
+<body class="locked">
+
+<!-- ====================== PANTALLA DE ENTRADA ====================== -->
+<div id="splash" role="dialog" aria-label="Pantalla de inicio">
+  <div class="splash-inner">
+    <p class="splash-title">FELIZ CUM, DAVID</p>
+    <p class="splash-sub">* Esta página tiene sonido. Sube el volumen.</p>
+    <button id="enterBtn" type="button">PRESIONA PARA ENTRAR</button>
+  </div>
+</div>
+
+<!-- ====================== MÚSICA ====================== -->
+<!-- Sube tu archivo con el nombre exacto "fondo.mp3" a la raíz del repositorio -->
+<audio id="bgm" src="fondo.mp3" loop preload="auto"></audio>
+<div class="audio-panel" id="audioPanel">
+  <button id="musicBtn" type="button" aria-pressed="true">MÚSICA: ON</button>
+  <label>
+    <span style="position:absolute;left:-9999px">Volumen</span>
+    <input id="volSlider" type="range" min="0" max="100" value="60">
+  </label>
+</div>
+
+<!-- ====================== HERO ====================== -->
+<header class="hero">
+  <div class="sticker s-soul" aria-hidden="true">
+    <svg viewBox="0 0 17 15"><path fill="#ff2a44" d="M8.5 14.5 1.2 7C-1 4 .8.6 4.4 1 6.3 1.2 7.7 2.3 8.5 3.8 9.3 2.3 10.7 1.2 12.6 1 16.2.6 18 4 15.8 7Z"/></svg>
+  </div>
+
+  <div class="sticker s-portal" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <defs>
+        <radialGradient id="pg" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#eaffd9"/>
+          <stop offset=".35" stop-color="#7cfc5a"/>
+          <stop offset=".8" stop-color="#1c8a1a"/>
+          <stop offset="1" stop-color="#0b3d0b"/>
+        </radialGradient>
+      </defs>
+      <g class="portal-spin">
+        <ellipse cx="50" cy="50" rx="40" ry="46" fill="url(#pg)"/>
+        <path d="M50 8c-18 6-26 20-20 34 4 10 16 12 20 4s-4-14-10-10" fill="none" stroke="#d9ffc4" stroke-width="3" stroke-linecap="round"/>
+        <path d="M50 92c18-6 26-20 20-34-4-10-16-12-20-4s4 14 10 10" fill="none" stroke="#d9ffc4" stroke-width="3" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="sticker s-slime" aria-hidden="true">
+    <svg viewBox="0 0 100 80">
+      <path fill="#4aa3ff" stroke="#1c5fb0" stroke-width="3" d="M8 66C8 34 26 14 50 14s42 20 42 52v4H8z"/>
+      <path fill="#a8d4ff" d="M24 34c4-8 12-12 20-12-8 4-14 10-16 18z"/>
+      <circle cx="38" cy="46" r="6" fill="#fff"/><circle cx="62" cy="46" r="6" fill="#fff"/>
+      <circle cx="39" cy="47" r="3" fill="#111"/><circle cx="61" cy="47" r="3" fill="#111"/>
+      <g transform="translate(70 4) rotate(35)">
+        <rect x="0" y="0" width="6" height="34" fill="#dfe6f2" stroke="#7b869c" stroke-width="1.5"/>
+        <rect x="-5" y="34" width="16" height="5" fill="#a855f7"/>
+        <rect x="1" y="39" width="4" height="9" fill="#6b4a2a"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="sticker s-mask" aria-hidden="true">
+    <svg viewBox="0 0 80 64">
+      <path fill="#cfc9dc" stroke="#6a647a" stroke-width="2.5" d="M8 12Q40 0 72 12L68 42Q40 62 12 42Z"/>
+      <circle cx="27" cy="27" r="9" fill="#13111c" stroke="#a855f7" stroke-width="3"/>
+      <circle cx="53" cy="27" r="9" fill="#13111c" stroke="#a855f7" stroke-width="3"/>
+      <circle cx="27" cy="27" r="3" fill="#c77dff"/><circle cx="53" cy="27" r="3" fill="#c77dff"/>
+      <path d="M26 46h28M28 50h24M31 54h18" stroke="#6a647a" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="sticker s-ghost" aria-hidden="true">👻</div>
+
+  <div class="wrap">
+    <h1>
+      <span class="l1">Feliz cum,</span>
+      <span class="l2">DAVID</span>
+    </h1>
+    <p class="sub">Nivel +1 desbloqueado. Guarda la partida.</p>
+
+    <!-- DIBUJITO (Sketchtoy). Se repite solo, es una animación en bucle. -->
+    <div class="sketch dialog">
+      <iframe
+        src="https://sketchtoy.com/71521171"
+        title="Dibujito de cumpleaños"
+        loading="eager"
+        allowfullscreen></iframe>
+    </div>
+    <p class="sketch-fallback">
+      ¿No se ve el dibujito? <a href="https://sketchtoy.com/71521171" target="_blank" rel="noopener">Ábrelo aquí</a>.
+    </p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ====================== MINIJUEGO ====================== -->
+  <section id="juego">
+    <div class="wrap">
+      <h2>Misiones</h2>
+      <p class="lead">Hay jefes esperándote. Gana peleando o perdonando. Tú decides cómo lo juegas.</p>
+
+      <div class="game-frame dialog">
+        <canvas id="gameCanvas" width="640" height="480" tabindex="0" aria-label="Minijuego. Haz clic para jugar."></canvas>
+      </div>
+
+      <ul class="controls">
+        <li><b>FLECHAS / WASD</b>mover</li>
+        <li><b>Z / ENTER</b>aceptar</li>
+        <li><b>X</b>cancelar (mantén para ir lento)</li>
+        <li><b>SHIFT</b>parpadeo (Blink)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====================== CARTA ====================== -->
+  <section>
+    <div class="wrap">
+      <div class="letter dialog" id="letter" aria-live="polite">
+        <!-- EDITA ESTAS LÍNEAS PARA PERSONALIZAR LA CARTA -->
+        <p data-line>* Un David salvaje apareció.</p>
+        <p data-line>* Hoy cumples un año más. Eso te llena de DETERMINACIÓN.</p>
+        <p data-line>* Tu nivel sube. Tu espalda baja. Tu setup sigue brillando en morado.</p>
+        <p data-line>* Armé esta página para ti: videos, memes y cosas que me recordaron a ti.</p>
+        <p data-line>* Gracias por existir en mi mundo. Que este año venga con buen loot y cero lag.</p>
+        <button class="next" id="next" type="button"><span class="heart">♥</span> Continuar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== LOGROS ====================== -->
+  <section>
+    <div class="wrap">
+      <h2>Logros desbloqueados</h2>
+      <p class="lead">Estadísticas oficiales de tu año, verificadas por nadie.</p>
+      <div class="achievements">
+        <div class="ach"><div class="ico">🏆</div><div><b>Superviviente</b><span>Sobreviviste otro año sin reiniciar el sistema.</span></div></div>
+        <div class="ach"><div class="ico">🍰</div><div><b>Jefe final: el pastel</b><span>Dificultad alta. Se recomienda ir en equipo.</span></div></div>
+        <div class="ach"><div class="ico">💜</div><div><b>Coleccionista de morado</b><span>LEDs, peluches y todo lo que brille violeta.</span></div></div>
+        <div class="ach"><div class="ico">🕹️</div><div><b>Excusa válida</b><span>Hoy no hay tareas pendientes. Es tu cum.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== MULTIVERSO ====================== -->
+  <section>
+    <div class="wrap">
+      <h2>Tus mundos favoritos felicitan</h2>
+      <p class="lead">Cuatro universos se unieron para desearte feliz cumpleaños.</p>
+
+      <div class="verse">
+
+        <article class="world w-terraria">
+          <div class="art" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <rect x="44" y="52" width="12" height="40" fill="#6b4a2a"/>
+              <circle cx="50" cy="34" r="26" fill="#2fae5b"/>
+              <circle cx="36" cy="44" r="14" fill="#25944c"/>
+              <circle cx="64" cy="42" r="14" fill="#25944c"/>
+              <rect x="10" y="90" width="80" height="8" fill="#4a3320"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Terraria</h3>
+            <p>El Guía dice: combina 1 año más con 1 pastel en la mesa de trabajo para obtener un regalo.</p>
+            <small>Consejo: no caves directo hacia abajo.</small>
+          </div>
+        </article>
+
+        <article class="world w-undertale">
+          <div class="art" aria-hidden="true">
+            <svg viewBox="0 0 17 15"><path fill="#ff2a44" d="M8.5 14.5 1.2 7C-1 4 .8.6 4.4 1 6.3 1.2 7.7 2.3 8.5 3.8 9.3 2.3 10.7 1.2 12.6 1 16.2.6 18 4 15.8 7Z"/></svg>
+          </div>
+          <div>
+            <h3>Undertale</h3>
+            <p>* Hace un día precioso afuera. Los pájaros cantan, las flores florecen. Y tú cumples años.</p>
+            <small>* Eso te llena de DETERMINACIÓN.</small>
+          </div>
+        </article>
+
+        <article class="world w-dishonored">
+          <div class="art" aria-hidden="true">
+            <svg viewBox="0 0 80 64">
+              <path fill="#cfc9dc" stroke="#6a647a" stroke-width="2.5" d="M8 12Q40 0 72 12L68 42Q40 62 12 42Z"/>
+              <circle cx="27" cy="27" r="9" fill="#13111c" stroke="#a855f7" stroke-width="3"/>
+              <circle cx="53" cy="27" r="9" fill="#13111c" stroke="#a855f7" stroke-width="3"/>
+              <path d="M26 46h28M28 50h24M31 54h18" stroke="#6a647a" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Dishonored</h3>
+            <p>Misión del día: infiltrarte en tu propia fiesta sin que suba la alerta. Sigilo: 0. Pastel: 100.</p>
+            <small>El Forastero te dejó una marca: el número de velas.</small>
+          </div>
+        </article>
+
+        <article class="world w-rick">
+          <div class="art" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <ellipse cx="50" cy="50" rx="40" ry="46" fill="url(#pg)"/>
+              <path d="M50 8c-18 6-26 20-20 34-4 10 16 12 20 4s-4-14-10-10" fill="none" stroke="#d9ffc4" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Rick and Morty</h3>
+            <p>Morty, en todas las dimensiones que revisé, esta es la mejor para cumplir años. Wubba lubba dub dub.</p>
+            <small>Hoy eres un Pickle David 🥒</small>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== VIDEOS / REELS ====================== -->
+  <section id="videos">
+    <div class="wrap">
+      <h2>Reels y videos recopilados para ti</h2>
+      <p class="lead">Lo mejor de lo mejor, elegido a mano para tu cum. Usa las flechitas para cambiar de video.</p>
+
+      <div class="carousel" id="carousel" tabindex="0" aria-roledescription="carrusel" aria-label="Carrusel de videos">
+        <button class="car-btn prev" id="prevBtn" type="button" aria-label="Video anterior">◀</button>
+        <div class="car-stage dialog">
+          <div class="car-frame v" id="carFrame"></div>
+        </div>
+        <button class="car-btn next" id="nextBtn" type="button" aria-label="Video siguiente">▶</button>
+      </div>
+      <p class="car-caption" id="carCaption"></p>
+      <p class="car-count" id="carCount"></p>
+      <div class="car-dots" id="carDots"></div>
+    </div>
+  </section>
+
+  <!-- ====================== DIBUJOS DRAW.IO ====================== -->
+  <!--
+    Aquí puedes pegar el bloque de draw.io (Archivo → Embed → HTML) cuando lo tengas.
+    Quita las marcas de comentario de la sección de abajo y pega el código dentro de .drawio-box.
+
+  <section>
+    <div class="wrap">
+      <h2>Dibujitos hechos para ti</h2>
+      <div class="drawio-box dialog">
+        PEGA AQUÍ EL CÓDIGO DE DRAW.IO
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- ====================== GUARDAR PARTIDA ====================== -->
+  <section class="save">
+    <div class="wrap">
+      <button id="saveBtn" type="button">GUARDAR PARTIDA</button>
+      <p class="save-msg" id="saveMsg" aria-live="polite"></p>
+      <small>Hecho con cariño, mucho morado y cero lag.</small>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/audio.js"></script>
+<script src="js/bosses.js"></script>
+<script src="js/game.js"></script>
+<script src="js/videos.js"></script>
+
+<script>
+  // ---------- Carta: avanzar línea por línea (como un diálogo de juego) ----------
+  (function () {
+    var lines = Array.prototype.slice.call(document.querySelectorAll('#letter [data-line]'));
+    var next = document.getElementById('next');
+    var shown = 1;
+
+    function render() {
+      lines.forEach(function (l, i) { l.hidden = i >= shown; });
+      if (shown >= lines.length) { next.hidden = true; }
+    }
+    render();
+    next.addEventListener('click', function () {
+      shown++;
+      if (window.SFX) window.SFX.play('select');
+      render();
+    });
+  })();
+
+  // ---------- Guardar partida: confeti pixelado ----------
+  (function () {
+    var btn = document.getElementById('saveBtn');
+    var msg = document.getElementById('saveMsg');
+    var colors = ['#a855f7', '#c77dff', '#7cfc5a', '#ff2a44', '#f4efff'];
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    btn.addEventListener('click', function () {
+      msg.textContent = '* Partida guardada. HP restaurado. Feliz cum, David.';
+      if (window.SFX) window.SFX.play('win');
+      if (reduce) return;
+      for (var i = 0; i < 70; i++) {
+        var b = document.createElement('span');
+        b.className = 'bit';
+        b.style.left = Math.random() * 100 + 'vw';
+        b.style.background = colors[i % colors.length];
+        document.body.appendChild(b);
+        b.animate(
+          [
+            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+            { transform: 'translateY(' + (window.innerHeight + 40) + 'px) rotate(' + (Math.random() * 720 - 360) + 'deg)', opacity: .9 }
+          ],
+          { duration: 1800 + Math.random() * 1800, easing: 'cubic-bezier(.3,.1,.6,1)', delay: Math.random() * 400 }
+        ).onfinish = (function (el) { return function () { el.remove(); }; })(b);
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
