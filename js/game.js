@@ -250,7 +250,7 @@
     return shoot({ shape: 'r', x: x + w / 2, y: y + h / 2, w: w, h: h, color: color || '#fff', dmg: 6, active: false, warn: warn, dur: dur, life: 1e9, isBeam: true });
   }
 
-  function warnFx(x, y, w, h, time, color) { B.fx.push({ x: x, y: y, w: w, h: h, life: time, max: time, color: color || '#fff' }); }
+  function warnFx(x, y, w, h, time, color, haz) { B.fx.push({ x: x, y: y, w: w, h: h, life: time, max: time, color: color || '#fff', haz: !!haz }); }
   function after(delay, fn) { B.timers.push({ t: delay, fn: fn }); }
 
   function computeArena() {
@@ -1041,7 +1041,7 @@
     else if (G.scene === 'battle' && B) drawBattle();
     else if (G.scene === 'ending' && E) drawEnding();
 
-    if (!G.focus) {
+    if (!G.focus && !(window.CUM_BOT && window.CUM_BOT.on)) {
       c.fillStyle = 'rgba(5,2,10,0.78)';
       c.fillRect(0, 0, W, H);
       txt('HAZ CLIC AQUÍ PARA JUGAR', 320, 210, 18, '#ffe14d', FP, 'center');
@@ -1055,7 +1055,16 @@
     window.requestAnimationFrame(frame);
     var dt = Math.min(0.033, (ts - last) / 1000 || 0);
     last = ts;
-    if (G.focus) update(dt);
+    var bot = window.CUM_BOT;
+    var botOn = !!(bot && bot.on);
+    if (G.focus || botOn) {
+      var steps = botOn ? (bot.speed || 1) : 1;
+      for (var i = 0; i < steps; i++) {
+        if (botOn) bot.step(dt);
+        update(dt);
+        pressed = {};
+      }
+    }
     render();
     pressed = {};
   }
@@ -1064,6 +1073,14 @@
     try { document.fonts.load('16px "Press Start 2P"'); document.fonts.load('22px "VT323"'); } catch (e) {}
   }
   window.requestAnimationFrame(frame);
+
+  // Ganchos para el modo AUTOPLAY de demostración (js/autoplay.js)
+  window.CUM_ENGINE = {
+    G: G, P: P, BOSSES: BOSSES, getB: function () { return B; }, getE: function () { return E; },
+    finalUnlocked: finalUnlocked, canvas: canvas,
+    press: function (code) { pressed[code] = true; },
+    hold: function (code, v) { down[code] = !!v; }
+  };
 
   // Para pruebas automáticas
   if (window.__CUM_TEST__) {

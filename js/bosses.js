@@ -195,7 +195,7 @@
         var iv = 0.3 / (g.k * rate);
         while (acc > iv) {
           acc -= iv;
-          g.shoot({ x: rnd(g.ar.l + 10, g.ar.r - 10), y: g.ar.t - 12, vx: rnd(-25, 25), vy: 90 * g.sp, r: 8, bn: 2, update: bounce, draw: dSlime });
+          g.shoot({ x: rnd(g.ar.l + 10, g.ar.r - 10), y: g.ar.t - 12, vx: rnd(-25, 25), vy: 90 * g.sp, r: 8, bn: 2, grav: 170, update: bounce, draw: dSlime });
         }
       }
     };
@@ -295,7 +295,7 @@
           var ar = g.ar;
           var fromLeft = (n % 2 === 1);
           var y = clamp(g.p.y + rnd(-10, 10), ar.t + 22, ar.b - 22);
-          g.warn(ar.l, y - 20, ar.w, 40, 0.75, '#ff4d4d');
+          g.warn(ar.l, y - 20, ar.w, 40, 0.75, '#ff4d4d', true);
           g.after(0.75, function () {
             g.shoot({ x: fromLeft ? ar.l - 30 : ar.r + 30, y: y, vx: (fromLeft ? 1 : -1) * 430 * g.sp, r: 20, draw: dBigEye });
           });
@@ -624,7 +624,7 @@
         while (acc > iv) {
           acc -= iv;
           g.shoot({
-            x: rnd(g.ar.l + 10, g.ar.r - 10), y: g.ar.b + 10, vx: rnd(-30, 30), vy: -rnd(230, 280), r: 6, draw: dFlame,
+            x: rnd(g.ar.l + 10, g.ar.r - 10), y: g.ar.b + 10, vx: rnd(-30, 30), vy: -rnd(230, 280), r: 6, grav: 260, draw: dFlame,
             update: function (b, d, gg) {
               b.vy += 260 * d;
               if (!b.burst && b.vy >= 0) {
