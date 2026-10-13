@@ -175,5 +175,5 @@ body.locked { overflow: hidden; }
   cursor: pointer;
 }
 .demo-bar button[aria-pressed="true"] { color: var(--void); background: var(--portal); border-color: var(--portal); }
-.demo-bar span { font-size: 22px; color: var(--portal); min-width: 9em; }
+.demo-bar span { font-size: 22px; color: var(--portal); min-width: 9em; text-align: center; }
 
