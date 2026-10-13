@@ -1,0 +1,123 @@
+/* ==========================================================================
+   Estilos: pantalla de entrada, panel de música, minijuego y carrusel
+   ========================================================================== */
+
+body.locked { overflow: hidden; }
+
+/* ---------- Pantalla de entrada ---------- */
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at 50% 30%, #2a1054 0%, transparent 60%),
+    #05020a;
+  text-align: center;
+  transition: opacity .6s ease;
+}
+#splash.gone { opacity: 0; pointer-events: none; }
+.splash-inner { padding: 24px; }
+.splash-title {
+  font-family: var(--pixel);
+  font-size: clamp(14px, 2.8vw, 28px);
+  line-height: 1.8;
+  max-width: 900px;
+  margin-inline: auto;
+  color: var(--neon);
+  text-shadow: 0 0 14px rgba(199,125,255,.8), 0 0 40px rgba(168,85,247,.6);
+}
+.splash-sub { margin: 18px 0 30px; font-size: 28px; color: var(--muted); }
+#enterBtn {
+  font-family: var(--pixel);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--void);
+  background: var(--neon);
+  border: 0;
+  padding: 18px 24px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #6b2fb3, 0 0 30px rgba(199,125,255,.55);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+#enterBtn:active { transform: translateY(4px); box-shadow: 0 2px 0 #6b2fb3; }
+@keyframes pulse { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.25); } }
+
+/* ---------- Panel de música ---------- */
+.audio-panel {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: #000;
+  border: 3px solid var(--neon);
+  box-shadow: 0 0 16px rgba(168,85,247,.5);
+}
+.audio-panel button {
+  font-family: var(--pixel);
+  font-size: 9px;
+  color: var(--bone);
+  background: var(--panel);
+  border: 2px solid var(--violet);
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.audio-panel button[aria-pressed="false"] { color: #7d6ba3; border-color: #3b2470; }
+.audio-panel input[type="range"] {
+  width: 110px;
+  accent-color: var(--neon);
+  cursor: pointer;
+}
+.audio-panel.no-music { opacity: .55; }
+
+/* ---------- Minijuego ---------- */
+#juego { padding-top: 24px; }
+.game-frame {
+  width: min(960px, 100%);
+  margin: 0 auto;
+  padding: 10px;
+}
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  background: #07040d;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  outline: none;
+  cursor: pointer;
+}
+#gameCanvas:focus-visible { outline: 3px solid var(--portal); outline-offset: 4px; }
+
+.controls {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  justify-content: center;
+  margin: 18px auto 0;
+  width: min(960px, 100%);
+  color: var(--muted);
+  font-size: 22px;
+}
+.controls b {
+  font-family: var(--pixel);
+  font-weight: 400;
+  font-size: 10px;
+  color: var(--bone);
+  background: var(--panel);
+  border: 2px solid #3b2470;
+  padding: 5px 7px;
+  margin-right: 6px;
+}
+
+@media (max-width: 700px) {
+  .audio-panel { top: 8px; right: 8px; gap: 6px; padding: 6px; }
+  .audio-panel input[type="range"] { width: 70px; }
+}

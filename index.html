@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Feliz cum, David</title>
+<title>Enhorabuena por tu onomástico, David</title>
 <meta name="theme-color" content="#0a0612">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👻</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,7 +82,7 @@
     color: var(--bone);
     text-shadow: 0 0 12px rgba(199,125,255,.7), 0 0 36px rgba(168,85,247,.55);
   }
-  .hero h1 .l1 { display: block; font-size: clamp(16px, 3.6vw, 28px); letter-spacing: .04em; }
+  .hero h1 .l1 { display: block; font-size: clamp(12px, 2.6vw, 22px); letter-spacing: .04em; }
   .hero h1 .l2 {
     display: block;
     font-size: clamp(38px, 11vw, 104px);
@@ -107,9 +107,8 @@
     padding: 14px;
     box-shadow: 0 0 0 4px #000, 0 0 40px rgba(168,85,247,.45);
   }
-  .sketch { width: min(560px, 100%); margin: 36px auto 0; }
-  .sketch iframe { display: block; width: 100%; aspect-ratio: 4 / 3; border: 0; background: #fff; }
-  .sketch-fallback { margin-top: 12px; font-size: 22px; color: var(--muted); }
+  .sketch { width: min(640px, 100%); margin: 36px auto 0; }
+  .sketch video { display: block; width: 100%; aspect-ratio: 960 / 520; background: #fff; object-fit: cover; }
 
   /* Pegatinas */
   .sticker { position: absolute; pointer-events: none; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
@@ -137,8 +136,8 @@
     margin-bottom: 8px;
   }
   .lead { color: var(--muted); font-size: 26px; margin-bottom: 28px; max-width: 60ch; }
-  #juego .lead, #videos .lead { margin-inline: auto; text-align: center; }
-  #juego h2, #videos h2 { text-align: center; }
+  #juego .lead { margin-inline: auto; text-align: center; }
+  #juego h2 { text-align: center; }
 
   /* Carta en caja de diálogo */
   .letter { max-width: 760px; margin-inline: auto; padding: 22px 22px 18px; }
@@ -164,25 +163,6 @@
   .ach b { display: block; font-family: var(--pixel); font-weight: 400; font-size: 11px; line-height: 1.6; color: var(--bone); margin-bottom: 4px; }
   .ach span { color: var(--muted); font-size: 22px; }
 
-  /* Multiverso */
-  .verse { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  .world {
-    background: var(--deep);
-    border: 4px solid #3b2470;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 96px 1fr;
-    gap: 18px;
-    align-items: center;
-  }
-  .world .art svg { width: 100%; height: auto; display: block; }
-  .world h3 { font-family: var(--pixel); font-weight: 400; font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
-  .world p { font-size: 24px; color: var(--bone); }
-  .world small { display: block; margin-top: 8px; color: var(--muted); font-size: 20px; }
-  .w-terraria { border-color: #2f7d4f; } .w-terraria h3 { color: #6fe39b; }
-  .w-undertale { border-color: #8a2230; } .w-undertale h3 { color: #ff6b7d; }
-  .w-dishonored { border-color: #4b5568; } .w-dishonored h3 { color: #b9c2d6; }
-  .w-rick { border-color: #2f8a2a; } .w-rick h3 { color: var(--portal); }
 
   /* ---------- FOOTER / SAVE ---------- */
   .save { text-align: center; padding: 56px 0 90px; }
@@ -193,7 +173,7 @@
     box-shadow: 0 6px 0 #6b2fb3, 0 0 30px rgba(199,125,255,.55);
   }
   .save button:active { transform: translateY(4px); box-shadow: 0 2px 0 #6b2fb3; }
-  .save-msg { margin-top: 24px; font-size: 28px; min-height: 1.3em; color: var(--bone); }
+  .save-msg { margin: 24px auto 0; max-width: 720px; font-size: 28px; min-height: 1.3em; color: var(--bone); }
   .save small { display: block; margin-top: 40px; color: #7d6ba3; font-size: 20px; }
 
   .bit { position: fixed; top: -20px; width: 10px; height: 10px; z-index: 60; pointer-events: none; }
@@ -205,8 +185,7 @@
     .s-soul { width: 46px; top: 14px; left: 4%; }
     .s-portal { width: 70px; top: 10px; right: 4%; }
     .s-slime, .s-mask, .s-ghost { display: none; }
-    .world { grid-template-columns: 72px 1fr; }
-    .letter p { font-size: 25px; }
+      .letter p { font-size: 25px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -221,7 +200,7 @@
 <!-- ====================== PANTALLA DE ENTRADA ====================== -->
 <div id="splash" role="dialog" aria-label="Pantalla de inicio">
   <div class="splash-inner">
-    <p class="splash-title">FELIZ CUM, DAVID</p>
+    <p class="splash-title">ENHORABUENA POR TU ONOMÁSTICO, DAVID</p>
     <p class="splash-sub">* Esta página tiene sonido. Sube el volumen.</p>
     <button id="enterBtn" type="button">PRESIONA PARA ENTRAR</button>
   </div>
@@ -290,22 +269,18 @@
 
   <div class="wrap">
     <h1>
-      <span class="l1">Feliz cum,</span>
+      <span class="l1">Enhorabuena por tu onomástico,</span>
       <span class="l2">DAVID</span>
     </h1>
     <p class="sub">Nivel +1 desbloqueado. Guarda la partida.</p>
 
-    <!-- DIBUJITO (Sketchtoy). Se repite solo, es una animación en bucle. -->
+    <!-- DIBUJITO: video corto en bucle (videos/dibujito.mp4).
+         Para poner otro, reemplaza ese archivo (y videos/dibujito.jpg, que es la portada) con el mismo nombre. -->
     <div class="sketch dialog">
-      <iframe
-        src="https://sketchtoy.com/71521171"
-        title="Dibujito de cumpleaños"
-        loading="eager"
-        allowfullscreen></iframe>
+      <video id="dibujito" src="videos/dibujito.mp4" poster="videos/dibujito.jpg"
+             autoplay muted loop playsinline preload="auto"
+             aria-label="Dibujito de cumpleaños"></video>
     </div>
-    <p class="sketch-fallback">
-      ¿No se ve el dibujito? <a href="https://sketchtoy.com/71521171" target="_blank" rel="noopener">Ábrelo aquí</a>.
-    </p>
   </div>
 </header>
 
@@ -359,95 +334,6 @@
     </div>
   </section>
 
-  <!-- ====================== MULTIVERSO ====================== -->
-  <section>
-    <div class="wrap">
-      <h2>Tus mundos favoritos felicitan</h2>
-      <p class="lead">Cuatro universos se unieron para desearte feliz cumpleaños.</p>
-
-      <div class="verse">
-
-        <article class="world w-terraria">
-          <div class="art" aria-hidden="true">
-            <svg viewBox="0 0 100 100">
-              <rect x="44" y="52" width="12" height="40" fill="#6b4a2a"/>
-              <circle cx="50" cy="34" r="26" fill="#2fae5b"/>
-              <circle cx="36" cy="44" r="14" fill="#25944c"/>
-              <circle cx="64" cy="42" r="14" fill="#25944c"/>
-              <rect x="10" y="90" width="80" height="8" fill="#4a3320"/>
-            </svg>
-          </div>
-          <div>
-            <h3>Terraria</h3>
-            <p>El Guía dice: combina 1 año más con 1 pastel en la mesa de trabajo para obtener un regalo.</p>
-            <small>Consejo: no caves directo hacia abajo.</small>
-          </div>
-        </article>
-
-        <article class="world w-undertale">
-          <div class="art" aria-hidden="true">
-            <svg viewBox="0 0 17 15"><path fill="#ff2a44" d="M8.5 14.5 1.2 7C-1 4 .8.6 4.4 1 6.3 1.2 7.7 2.3 8.5 3.8 9.3 2.3 10.7 1.2 12.6 1 16.2.6 18 4 15.8 7Z"/></svg>
-          </div>
-          <div>
-            <h3>Undertale</h3>
-            <p>* Hace un día precioso afuera. Los pájaros cantan, las flores florecen. Y tú cumples años.</p>
-            <small>* Eso te llena de DETERMINACIÓN.</small>
-          </div>
-        </article>
-
-        <article class="world w-dishonored">
-          <div class="art" aria-hidden="true">
-            <svg viewBox="0 0 80 64">
-              <path fill="#cfc9dc" stroke="#6a647a" stroke-width="2.5" d="M8 12Q40 0 72 12L68 42Q40 62 12 42Z"/>
-              <circle cx="27" cy="27" r="9" fill="#13111c" stroke="#a855f7" stroke-width="3"/>
-              <circle cx="53" cy="27" r="9" fill="#13111c" stroke="#a855f7" stroke-width="3"/>
-              <path d="M26 46h28M28 50h24M31 54h18" stroke="#6a647a" stroke-width="2.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div>
-            <h3>Dishonored</h3>
-            <p>Misión del día: infiltrarte en tu propia fiesta sin que suba la alerta. Sigilo: 0. Pastel: 100.</p>
-            <small>El Forastero te dejó una marca: el número de velas.</small>
-          </div>
-        </article>
-
-        <article class="world w-rick">
-          <div class="art" aria-hidden="true">
-            <svg viewBox="0 0 100 100">
-              <ellipse cx="50" cy="50" rx="40" ry="46" fill="url(#pg)"/>
-              <path d="M50 8c-18 6-26 20-20 34-4 10 16 12 20 4s-4-14-10-10" fill="none" stroke="#d9ffc4" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div>
-            <h3>Rick and Morty</h3>
-            <p>Morty, en todas las dimensiones que revisé, esta es la mejor para cumplir años. Wubba lubba dub dub.</p>
-            <small>Hoy eres un Pickle David 🥒</small>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ====================== VIDEOS / REELS ====================== -->
-  <section id="videos">
-    <div class="wrap">
-      <h2>Reels y videos recopilados para ti</h2>
-      <p class="lead">Lo mejor de lo mejor, elegido a mano para tu cum. Usa las flechitas para cambiar de video.</p>
-
-      <div class="carousel" id="carousel" tabindex="0" aria-roledescription="carrusel" aria-label="Carrusel de videos">
-        <button class="car-btn prev" id="prevBtn" type="button" aria-label="Video anterior">◀</button>
-        <div class="car-stage dialog">
-          <div class="car-frame v" id="carFrame"></div>
-        </div>
-        <button class="car-btn next" id="nextBtn" type="button" aria-label="Video siguiente">▶</button>
-      </div>
-      <p class="car-caption" id="carCaption"></p>
-      <p class="car-count" id="carCount"></p>
-      <div class="car-dots" id="carDots"></div>
-    </div>
-  </section>
-
   <!-- ====================== DIBUJOS DRAW.IO ====================== -->
   <!--
     Aquí puedes pegar el bloque de draw.io (Archivo → Embed → HTML) cuando lo tengas.
@@ -477,7 +363,6 @@
 <script src="js/audio.js"></script>
 <script src="js/bosses.js"></script>
 <script src="js/game.js"></script>
-<script src="js/videos.js"></script>
 
 <script>
   // ---------- Carta: avanzar línea por línea (como un diálogo de juego) ----------
@@ -506,7 +391,7 @@
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     btn.addEventListener('click', function () {
-      msg.textContent = '* Partida guardada. HP restaurado. Feliz cum, David.';
+      msg.textContent = '* Partida guardada. HP restaurado. Pero no se guardó una vrga pq este sv no tiene base de datos jaja. Esta partida solo vale para ese navegador y ese equipo.';
       if (window.SFX) window.SFX.play('win');
       if (reduce) return;
       for (var i = 0; i < 70; i++) {
@@ -524,6 +409,18 @@
         ).onfinish = (function (el) { return function () { el.remove(); }; })(b);
       }
     });
+  })();
+</script>
+
+<script>
+  // Asegura que el dibujito se reproduzca (algunos navegadores frenan el autoplay hasta que hay un clic)
+  (function () {
+    var v = document.getElementById('dibujito');
+    if (!v) return;
+    function go() { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    go();
+    document.addEventListener('click', go, { once: true });
+    document.addEventListener('keydown', go, { once: true });
   })();
 </script>
 
