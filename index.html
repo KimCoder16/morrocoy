@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<script>window.__cumErr=[];window.addEventListener('error',function(e){window.__cumErr.push(String(e.filename||'').split('/').pop().split('?')[0]+':'+e.lineno+' '+e.message);});</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Enhorabuena por tu onomástico, David</title>
 <meta name="theme-color" content="#0a0612">
@@ -107,8 +108,14 @@
     padding: 14px;
     box-shadow: 0 0 0 4px #000, 0 0 40px rgba(168,85,247,.45);
   }
-  .sketch { width: min(640px, 100%); margin: 36px auto 0; }
-  .sketch video { display: block; width: 100%; aspect-ratio: 960 / 520; background: #fff; object-fit: cover; }
+  .sketch { width: min(780px, 100%); margin: 36px auto 0; }
+  .sketch video { display: block; width: 100%; aspect-ratio: 960 / 578; background: #fff; object-fit: cover; }
+  .sketch.boom-shake { animation: boomshake .7s steps(1) 1; }
+  @keyframes boomshake {
+    0% { translate: 0 0; } 10% { translate: -14px 8px; } 20% { translate: 12px -10px; } 30% { translate: -10px -6px; }
+    40% { translate: 9px 7px; } 50% { translate: -6px 4px; } 60% { translate: 5px -4px; } 70% { translate: -3px 2px; }
+    80% { translate: 2px -2px; } 100% { translate: 0 0; }
+  }
 
   /* Pegatinas */
   .sticker { position: absolute; pointer-events: none; filter: drop-shadow(0 6px 14px rgba(0,0,0,.6)); }
@@ -192,7 +199,7 @@
     *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; }
   }
 </style>
-<link rel="stylesheet" href="css/game.css?v=20261013b">
+<link rel="stylesheet" href="css/game.css?v=20261020">
 </head>
 
 <body class="locked">
@@ -278,10 +285,10 @@
     </h1>
     <p class="sub">Nivel +1 desbloqueado. Guarda la partida.</p>
 
-    <!-- DIBUJITO: video corto en bucle (videos/dibujito.mp4).
-         Para poner otro, reemplaza ese archivo (y videos/dibujito.jpg, que es la portada) con el mismo nombre. -->
+    <!-- DIBUJITO: video en bucle (videos/dibujito.mp4). Dura 77.6 s; la explosión cae en el segundo 72.0
+         (si cambias el video, cambia BOOM_AT en el script de abajo). Portada: videos/dibujito.jpg -->
     <div class="sketch dialog">
-      <video id="dibujito" src="videos/dibujito.mp4" poster="videos/dibujito.jpg"
+      <video id="dibujito" src="videos/dibujito.mp4?v=20261020" poster="videos/dibujito.jpg?v=20261020"
              autoplay muted loop playsinline preload="auto"
              aria-label="Dibujito de cumpleaños"></video>
     </div>
@@ -312,6 +319,7 @@
         <button id="autoBtn" type="button" aria-pressed="false">AUTOPLAY (DEMO)</button>
         <button id="speedBtn" type="button">VELOCIDAD x1</button>
         <span id="autoState" aria-live="polite"></span>
+        <p id="diag" class="diag"></p>
       </div>
     </div>
   </section>
@@ -390,19 +398,24 @@
 
 </main>
 
-<script src="js/audio.js?v=20261013b"></script>
-<script src="js/bosses.js?v=20261013b"></script>
-<script src="js/game.js?v=20261013b"></script>
-<script src="js/autoplay.js?v=20261013b"></script> <!-- DEMO TEMPORAL: se puede borrar -->
+<script src="js/audio.js?v=20261020"></script>
+<script src="js/bosses.js?v=20261020"></script>
+<script src="js/game.js?v=20261020"></script>
+<script src="js/autoplay.js?v=20261020"></script> <!-- DEMO TEMPORAL: se puede borrar -->
 <script>
-  // DEMO TEMPORAL: si el autoplay no cargó, avisa qué archivo falta en vez de quedarse mudo
+  // DEMO TEMPORAL: revisa que todos los archivos estén en su versión nueva y avisa cuál falta
   (function () {
-    if (window.CUM_BOT) return;
-    var btn = document.getElementById('autoBtn'), st = document.getElementById('autoState');
-    var msg = !window.CUM_ENGINE
-      ? 'Falta subir el js/game.js nuevo (o recarga con Ctrl+F5).'
-      : 'Falta subir js/autoplay.js (o recarga con Ctrl+F5).';
-    if (btn) btn.addEventListener('click', function () { if (st) st.textContent = msg; });
+    var NEED = 3, V = window.CUM_V || {};
+    var cssV = 0;
+    try { cssV = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cum-css'), 10) || 0; } catch (e) {}
+    var files = [['css/game.css', cssV], ['js/bosses.js', V.bosses || 0], ['js/game.js', V.game || 0], ['js/autoplay.js', V.autoplay || 0]];
+    var old = files.filter(function (f) { return f[1] < NEED; }).map(function (f) { return f[0]; });
+    var errs = (window.__cumErr || []).slice(0, 2).join(' | ');
+    var diag = document.getElementById('diag'), btn = document.getElementById('autoBtn'), st = document.getElementById('autoState');
+    var text = old.length ? 'Archivos viejos o sin subir: ' + old.join(', ') : 'Archivos al día.';
+    if (errs) text += '  Errores: ' + errs;
+    if (diag) diag.textContent = text;
+    if (!window.CUM_BOT && btn) btn.addEventListener('click', function () { if (st) st.textContent = 'No arrancó.'; });
   })();
 </script>
 
@@ -451,6 +464,27 @@
         ).onfinish = (function (el) { return function () { el.remove(); }; })(b);
       }
     });
+  })();
+</script>
+
+<script>
+  // BOOM: suena el efecto y tiembla el marco justo cuando explota el video (segundo 72.0)
+  (function () {
+    var v = document.getElementById('dibujito');
+    var box = document.querySelector('.sketch');
+    if (!v) return;
+    var BOOM_AT = 72.0, prev = 0;
+    function tick() {
+      var t = v.currentTime;
+      if (t < prev) prev = 0;                                   // el video volvió a empezar
+      if (prev < BOOM_AT && t >= BOOM_AT && !document.body.classList.contains('locked')) {
+        if (window.SFX) window.SFX.play('boom');
+        if (box) { box.classList.remove('boom-shake'); void box.offsetWidth; box.classList.add('boom-shake'); }
+      }
+      prev = t;
+      window.requestAnimationFrame(tick);
+    }
+    window.requestAnimationFrame(tick);
   })();
 </script>
 
