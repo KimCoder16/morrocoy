@@ -87,6 +87,7 @@
       var n = [523, 659, 784, 1047, 784, 1047, 1319];
       for (var i = 0; i < n.length; i++) tone(n[i], 0.16, 'square', 0.1, 0, i * 0.12);
     },
+    boom: function () { noise(1.5, 0.6, 110); noise(0.5, 0.45, 1800); tone(70, 1.2, 'sawtooth', 0.5, 22); tone(140, 0.5, 'square', 0.25, 40); },
     zap: function () { noise(0.7, 0.35, 1800); tone(1400, 0.7, 'sawtooth', 0.14, 90); }
   };
 
