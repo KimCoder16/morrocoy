@@ -6,6 +6,7 @@
    ========================================================================== */
 (function () {
   'use strict';
+  window.CUM_V = window.CUM_V || {}; window.CUM_V.game = 3;
 
   var canvas = document.getElementById('gameCanvas');
   if (!canvas || !window.BOSSES || !window.BossKit) return;
@@ -624,7 +625,7 @@
     B.dmode = mode;
     B.dissolve = 0;
     B.bubble = null;
-    sfx(mode === 'kill' ? 'bossdie' : 'spare');
+    sfx(mode === 'kill' ? 'superfart' : 'spare');
   }
 
   function updDissolve(dt) {
@@ -652,7 +653,7 @@
     var b = B;
     b.deadT += dt;
     if (b.deadT > 0.55 && !b.cracked) { b.cracked = true; sfx('crack'); }
-    if (b.deadT > 1.1 && !b.broke) { b.broke = true; sfx('dead'); }
+    if (b.deadT > 1.1 && !b.broke) { b.broke = true; sfx('fart'); }
     if (b.broke) {
       for (var i = 0; i < b.shards.length; i++) {
         var s = b.shards[i];
